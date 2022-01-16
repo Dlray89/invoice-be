@@ -36,4 +36,14 @@ invoiceRouter.post('', (req, res) => {
     })
 })
 
+invoiceRouter.put('/:id', cors(), (req, res) => {
+    const { id } = req.params
+    const changes = req.body
+    invoicesModel.update(id, changes).then(changes => {
+        res.status(200).json(changes)
+    }).catch(err => {
+        res.status(500).json({message: `cannot update: ${err}`})
+    })
+})
+
 module.exports = invoiceRouter

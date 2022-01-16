@@ -22,8 +22,8 @@ function add(invoices) {
     .then((ids) => ({ id: ids[0], message: 'new invoice created', invoices }));
 }
 
-function update(change, id) {
-    return invoiceDB('invoices').where({ id }).update(change, '*')
+function update(id, change) {
+    return invoiceDB('invoices').where({ id }).update(change, '*').then((id) => ({id: id ,change}))
 }
 
 function remove(id) {
