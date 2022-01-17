@@ -9,7 +9,7 @@ exports.up = function (knex) {
     invoices.integer('paymentTerms')
     invoices.text("clientName", 200).notNullable();
     invoices.text("clientEmail", 200).notNullable().unique();
-    invoices.boolean("status", false);
+    invoices.boolean("status").defaultTo(false);
     invoices.integer("total");
     invoices.text('senderStreet', 400)
     invoices.text('senderCity', 400)

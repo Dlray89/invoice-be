@@ -6,6 +6,7 @@ const helmet = require('helmet')
 
 
 const invoiceRouter = require('./routers/invoice.router')
+const itemRouter = require('./routers/items.router')
 
 const invoiceApp= express()
 
@@ -15,6 +16,7 @@ invoiceApp.use(express.json())
 invoiceApp.use(cors());
 
 invoiceApp.use('/api/invoices', invoiceRouter)
+invoiceApp.use('/api/items', itemRouter)
 
 
 invoiceApp.get("/", (req, res) => {

@@ -16,12 +16,25 @@ invoiceRouter.get('/', (req, res) => {
     })
 })
 
+
+
 invoiceRouter.get('/:id', cors(), (req, res) => {
     const { id } = req.params
     invoicesModel.findById(id).then(invoice => {
         res.status(200).json(invoice)
     }).catch(err => {
         res.status(500).json({message: "Can't find ID of invoice"})
+    })
+})
+
+
+invoiceRouter.get('/:id/items', (req, res) => {
+    const { id } = req.params
+    
+    invoicesModel.getInvoiceItems(id).then(items => {
+        res.status(200).json(items)
+    }).catch(err => {
+        res.status(500).json({message: `${err}: error has occured`})
     })
 })
 
@@ -43,6 +56,18 @@ invoiceRouter.put('/:id', cors(), (req, res) => {
         res.status(200).json(changes)
     }).catch(err => {
         res.status(500).json({message: `cannot update: ${err}`})
+    })
+})
+
+
+invoiceRouter.delete('/:id', (req, res) => {
+    const { id } = req.params
+
+    invoicesModel.remove(id)
+        .then(deleteInvoice => {
+        res.status(200).json(deleteInvoice)
+        }).catch(err => {
+        res.status(500).json({ message: `Could not delete your invoice: ${err}`})
     })
 })
 
